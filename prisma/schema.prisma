@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model buku {
+  id_buku      Int    @id @default(autoincrement())
+  judul_buku   String @db.VarChar(100)
+  tahun_terbit Int
+  genre        String @db.VarChar(50)
+  id_pengarang Int
+
+  @@index([id_pengarang], map: "id_pengarang")
+}
+
+model pengarang {
+  id_pengarang   Int      @id
+  nama_pengarang String   @db.VarChar(100)
+  tgl_lahir      DateTime @db.Date
+  negara         String   @db.VarChar(50)
+}
